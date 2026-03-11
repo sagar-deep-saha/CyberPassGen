@@ -1,0 +1,186 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+    --primary: 182 84% 49%;
+    --primary-foreground: 0 0% 0%;
+    --secondary: 160 63% 49%;
+    --secondary-foreground: 0 0% 0%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    --accent: 326 100% 50%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 0%;
+    --input: 0 0% 89.8%;
+    --ring: 182 84% 49%;
+    --radius: 0px;
+  }
+  .dark {
+    --background: 0 0% 7%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 10%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 7%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 182 84% 49%;
+    --primary-foreground: 0 0% 0%;
+    --secondary: 160 63% 49%;
+    --secondary-foreground: 0 0% 0%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 65%;
+    --accent: 326 100% 50%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 0%;
+    --input: 0 0% 20%;
+    --ring: 182 84% 49%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+    border-radius: 0px !important;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer components {
+  .neo-brutalist-container {
+    @apply bg-card border-[3px] border-black shadow-brutalist;
+  }
+  
+  .neo-brutalist-button {
+    @apply bg-primary text-black font-bold uppercase tracking-widest border-[3px] border-black shadow-brutalist active:shadow-none active:translate-x-[4px] active:translate-y-[4px] transition-all;
+  }
+
+  .neo-brutalist-button-secondary {
+    @apply bg-secondary text-black font-bold uppercase tracking-widest border-[3px] border-black shadow-brutalist active:shadow-none active:translate-x-[4px] active:translate-y-[4px] transition-all;
+  }
+}
+
+.scanline-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(20, 222, 230, 0.03) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  background-size: 100% 4px;
+  pointer-events: none;
+  z-index: 50;
+  opacity: 0.5;
+}
+
+.moving-scanline {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: rgba(20, 222, 230, 0.1);
+  box-shadow: 0 0 10px rgba(20, 222, 230, 0.5);
+  pointer-events: none;
+  z-index: 51;
+  animation: scanline 6s linear infinite;
+}
+
+@keyframes scanline {
+  0% {
+    transform: translateY(-10%);
+  }
+  100% {
+    transform: translateY(110vh);
+  }
+}
+
+.glitch {
+  position: relative;
+  animation: glitch-skew 1s infinite linear alternate-reverse;
+}
+.glitch > span {
+  display: block;
+  position: relative;
+}
+.glitch > span:before,
+.glitch > span:after {
+  content: attr(aria-hidden);
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0.8;
+}
+.glitch > span:before {
+  animation: glitch-anim 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
+  color: hsl(var(--secondary));
+  z-index: -1;
+}
+.glitch > span:after {
+  animation: glitch-anim-2 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) reverse both infinite;
+  color: hsl(var(--accent));
+  z-index: -2;
+}
+
+@keyframes glitch-skew {
+  0% {
+    transform: skew(0deg);
+  }
+  10% {
+    transform: skew(2deg);
+  }
+  20% {
+    transform: skew(-3deg);
+  }
+  30% {
+    transform: skew(1deg);
+  }
+  40% {
+    transform: skew(0deg);
+  }
+  100% {
+    transform: skew(0deg);
+  }
+}
+
+@keyframes glitch-anim {
+  0% {
+    clip-path: inset(50% 0 0 0);
+    transform: translate(-4px, 2px);
+  }
+  100% {
+    clip-path: inset(0 0 50% 0);
+    transform: translate(4px, -2px);
+  }
+}
+
+@keyframes glitch-anim-2 {
+  0% {
+    clip-path: inset(0 0 90% 0);
+    transform: translate(4px, 2px);
+  }
+  100% {
+    clip-path: inset(40% 0 20% 0);
+    transform: translate(-4px, -2px);
+  }
+}
+
